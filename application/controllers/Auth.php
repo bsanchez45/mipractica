@@ -12,7 +12,7 @@
 
         public function iniciar(){
             $datos = array(
-                'email' => $this->input->post('email'),
+                'email' => trim($this->input->post('email')),
                 'password' => sha1(trim($this->input->post('pwd')))
             );
             $dbresult = $this->Auth_model->getData($datos['email']);
