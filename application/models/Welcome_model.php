@@ -7,7 +7,7 @@ class Welcome_model extends CI_Model {
         #$this->load->database();
     }
 
-    private $table  = 'preregistros' ;
+    private $table  = 'preregistro' ;
 
     public function insert($data)
     {
