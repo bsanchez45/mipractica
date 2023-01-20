@@ -3,6 +3,7 @@
 
         public function __construct(){
             parent::__construct();
+            $this->load->model('Auth_model');
         } 
 
         public function index(){
@@ -10,7 +11,21 @@
         }
 
         public function iniciar(){
-            print_r($_POST);
+            $datos = array(
+                'email' => $this->input->post('email'),
+                'password' => sha1(trim($this->input->post('pwd')))
+            );
+            $dbresult = $this->Auth_model->getData($datos['email']);
+
+            if(empty($dbresult)){
+                echo "El correo no existe";
+            }else{
+                if($datos['password'] == $dbresult['password']){
+                    redirect('Welcome');
+                }else{
+                    echo "Contraseña incorrecta";
+                }
+            }
         }
     }
 ?>
