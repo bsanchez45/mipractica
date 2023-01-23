@@ -18,9 +18,10 @@ class Welcome extends CI_Controller {
 	public function listar(){
 		#print_r($this->Welcome_model->readData());
 		$data['preregistros'] = $this->Welcome_model->readData();
-		$this->load->view('view_header');
+		$this->load->view('templates/header');
+		$this->load->view('templates/navbar');
 		$this->load->view('view_registro', $data);
-		$this->load->view('view_footer');
+		$this->load->view('templates/footer');
 	}
 
 
@@ -29,9 +30,10 @@ class Welcome extends CI_Controller {
 		if($this->session->userdata('rol') == 1){
 			$data['roles'] = $this->Welcome_model->getRol();
 		}
-		$this->load->view('view_header');
+		$this->load->view('templates/header');
+		$this->load->view('templates/navbar');
 		$this->load->view('view_editar', $data);
-		$this->load->view('view_footer');
+		$this->load->view('templates/footer');
 	}
 
 	public function eliminar($id){
