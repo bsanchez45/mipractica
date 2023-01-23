@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CRUD</title>
+    <title>Iniciar Sesion</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -23,7 +23,7 @@
                 <input type="password" class="form-control" id="pwd" name="pwd">
             </div>
             <div class="form-group">
-                <a href="<?php echo base_url('Welcome');?>"><span class="glyphicon glyphicon-user" style="color: black;">
+                <a href="<?php echo base_url('Registro');?>"><span class="glyphicon glyphicon-user" style="color: black;">
                         Registrarse</span></a>
             </div>
             <button type="submit" class="btn btn-default">Entrar</button>

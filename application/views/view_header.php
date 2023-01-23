@@ -12,11 +12,11 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Crud</a>
+      <a class="navbar-brand" href="<?php echo base_url('welcome') ?>">Crud</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="<?php echo base_url() ?>">Home</a></li>
       <li><a href="<?php echo base_url('welcome/listar') ?>">Listar</a></li>
+      <li><a href="<?php echo base_url('Auth/logout') ?>">Cerrar Sesion</a></li>
     </ul>
   </div>
 </nav>

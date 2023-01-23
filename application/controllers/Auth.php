@@ -21,11 +21,25 @@
                 echo "El correo no existe";
             }else{
                 if($datos['password'] == $dbresult['password']){
-                    redirect('Welcome');
+                    $user = array(
+                        'id_user' => $dbresult['id_preregistro'],
+                        'rol' => $dbresult['rol']
+                    );
+                    $this->session->set_userdata($user);
+                    redirect('Welcome/listar');
                 }else{
                     echo "Contraseña incorrecta";
                 }
             }
+        }
+
+        public function logout(){
+            $user = array(
+                'id_user',
+                'rol'
+            );
+            $this->session->unset_userdata($user);
+            redirect("Auth");
         }
     }
 ?>

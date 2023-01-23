@@ -5,14 +5,14 @@ class Welcome extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model('Welcome_model'); //aqui cargamos nuetro modelo
-		// include 
+		if(!$this->session->has_userdata('id_user')){
+			redirect('Auth');
+		}
+		$this->load->model('Welcome_model');
 	}
 	
 	public function index(){
-		$this->load->view('view_header');
-		$this->load->view('welcome_message');
-		$this->load->view('view_footer');
+		redirect('Welcome/listar');
 	}
 
 	public function listar(){
@@ -23,29 +23,12 @@ class Welcome extends CI_Controller {
 		$this->load->view('view_footer');
 	}
 
-	public function registrar(){
-		$datos = array(
-			'nombre' => strtoupper(trim($this->input->post('nombre'))),
-			'apaterno' => strtoupper(trim($this->input->post('apaterno'))),
-			'amaterno' => strtoupper(trim($this->input->post('amaterno'))),
-			'email' => trim($this->input->post('email')),
-			'password' => sha1(trim($this->input->post('pwd')))
-		);
-
-		if($this->Welcome_model->comprobarCorreo($datos['email'])){
-			echo 'El Correo esta registrado';
-		}else{
-			$result = $this->Welcome_model->insert($datos);
-			if ($result == TRUE){
-				redirect('Welcome/listar');
-			}else{
-				echo 'Contacta a soporte';
-			}
-		}
-	}
 
 	public function actualizar($id){
 		$data['preregistro'] = $this->Welcome_model->fetch($id);
+		if($this->session->userdata('rol') == 1){
+			$data['roles'] = $this->Welcome_model->getRol();
+		}
 		$this->load->view('view_header');
 		$this->load->view('view_editar', $data);
 		$this->load->view('view_footer');
@@ -61,20 +44,19 @@ class Welcome extends CI_Controller {
 			'nombre' => strtoupper(trim($this->input->post('nombre'))),
 			'apaterno' => strtoupper(trim($this->input->post('apaterno'))),
 			'amaterno' => strtoupper(trim($this->input->post('amaterno'))),
-			'email' => trim($this->input->post('email')),
-			'password' => sha1(trim($this->input->post('pwd')))
+			'email' => trim($this->input->post('email'))
 		);
 		$id = $this->input->post('id_preregistro');
 
-		if($this->Welcome_model->comprobarCorreo($datos['email'])){
-			echo 'El Correo esta registrado';
+		if($this->session->userdata('rol') == 1){
+			$datos['rol'] = $this->input->post('rol');
+		}
+
+		$result = $this->Welcome_model->update($id, $datos);
+		if ($result == TRUE) {
+			redirect('Welcome/listar');
 		}else{
-			$result = $this->Welcome_model->update($id, $datos);
-			if ($result == TRUE) {
-				redirect('Welcome/listar');
-			}else{
-				echo 'Contacta a soporte';
-			}
+			echo 'Contacta a soporte';
 		}
 	}
 }

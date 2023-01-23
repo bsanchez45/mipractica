@@ -7,13 +7,7 @@ class Welcome_model extends CI_Model {
         #$this->load->database();
     }
 
-    private $table  = 'preregistro' ;
-
-    public function insert($data)
-    {
-        $isOkey = $this->db->insert($this->table, $data);
-        return ($isOkey == true) ? true : false;
-    }
+    private $table  = 'preregistros' ;
 
     public function readData()
     {
@@ -24,8 +18,13 @@ class Welcome_model extends CI_Model {
     public function fetch($id)
     {
         $rstQuery = $this->db->get_where($this->table, array('id_preregistro' => $id));
-        return $rstQuery->result_array();
+        return $rstQuery->row_array();
         
+    }
+
+    public function getRol(){
+        $data = $this->db->get("roles");
+        return $data->result_array();
     }
 
     public function update($id, $data){
@@ -36,16 +35,6 @@ class Welcome_model extends CI_Model {
 
 	public function delete($id){
 		$this->db->delete($this->table, array('id_preregistro' => $id));
-	}
-
-	public function comprobarCorreo($email){
-		$query = $this->db->get_where($this->table, array('email' => $email));
-    
-		if($query->num_rows() > 0) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 }

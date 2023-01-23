@@ -1,7 +1,7 @@
 <?php
     class Auth_model extends CI_Model{
 
-        private $table = 'preregistro';
+        private $table = 'preregistros';
 
         public function __construct(){
             parent::__construct();
