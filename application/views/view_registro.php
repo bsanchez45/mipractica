@@ -23,8 +23,14 @@
                 <td><?php echo $row['amaterno']; ?></td>
                 <td><?php echo $row['email']; ?></td>
                 <td>
-									<a href="<?php echo base_url('welcome/actualizar').'/'.$row['id_preregistro']; ?>"><span class="glyphicon glyphicon-pencil"></span></a>
-									<a href="<?php echo base_url('welcome/eliminar').'/'.$row['id_preregistro']; ?>"><span class="glyphicon glyphicon-trash"></span></a>
+                  <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Acciones
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><a href="<?php echo base_url('welcome/actualizar').'/'.$row['id_preregistro']; ?>">Editar</a></li>
+                      <li><a href="<?php echo base_url('welcome/eliminar').'/'.$row['id_preregistro']; ?>">Eliminar</a></li>
+                    </ul>
+                  </div>
 								</td>
             </tr>
         <?php } ?>
