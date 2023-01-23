@@ -18,17 +18,22 @@
             $dbresult = $this->Auth_model->getData($datos['email']);
 
             if(empty($dbresult)){
-                echo "El correo no existe";
+                $this->session->set_flashdata('warning', 'El correo no existe');
+                redirect('Auth');
             }else{
                 if($datos['password'] == $dbresult['password']){
                     $user = array(
                         'id_user' => $dbresult['id_preregistro'],
+                        'nombre' => $dbresult['nombre'],
                         'rol' => $dbresult['rol']
                     );
                     $this->session->set_userdata($user);
+                    $this->session->set_flashdata('success', 'Bienvenido '. $dbresult['nombre']);
+                    
                     redirect('Welcome/listar');
                 }else{
-                    echo "Contraseña incorrecta";
+                    $this->session->set_flashdata('danger', 'Contraseña incorrecta');
+                    redirect('Auth');
                 }
             }
         }
@@ -39,6 +44,7 @@
                 'rol'
             );
             $this->session->unset_userdata($user);
+            $this->session->sess_destroy();
             redirect("Auth");
         }
     }

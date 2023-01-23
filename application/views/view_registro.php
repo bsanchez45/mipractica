@@ -14,7 +14,11 @@
       </tr>
     </thead>
     <tbody>
-        <?php #var_dump($preregistro); ?>
+        <?php if($this->session->flashdata('success')){ ?>
+          <div class="alert alert-success">
+            <strong><?php echo $this->session->flashdata('success'); ?></strong>
+          </div>
+        <?php } ?>
         <?php foreach($preregistros as $row) { ?>
             <tr>
                 <td><?php echo $row['id_preregistro']; ?></td>
@@ -24,11 +28,11 @@
                 <td><?php echo $row['email']; ?></td>
                 <td>
                   <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Acciones
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Acciones
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                      <li><a href="<?php echo base_url('welcome/actualizar').'/'.$row['id_preregistro']; ?>">Editar</a></li>
-                      <li><a href="<?php echo base_url('welcome/eliminar').'/'.$row['id_preregistro']; ?>">Eliminar</a></li>
+                      <li><a href="<?php echo base_url('welcome/actualizar').'/'.$row['id_preregistro']; ?>"><span class="glyphicon glyphicon-pencil"></span> Editar</a></li>
+                      <li><a href="<?php echo base_url('welcome/eliminar').'/'.$row['id_preregistro']; ?>"><span class="glyphicon glyphicon-trash"></span> Eliminar</a></li>
                     </ul>
                   </div>
 								</td>

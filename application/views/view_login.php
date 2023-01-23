@@ -12,6 +12,15 @@
 
 <body>
     <div class="container" style="margin-top: 15%;">
+        <?php if($this->session->flashdata('warning')){ ?>
+          <div class="alert alert-warning">
+            <strong>Advertencia</strong><?php echo ' '.$this->session->flashdata('warning'); ?>
+          </div>
+        <?php }else if($this->session->flashdata('danger')){ ?>
+            <div class="alert alert-danger">
+                <strong>Advertencia</strong><?php echo ' '.$this->session->flashdata('danger'); ?>
+            </div>
+        <?php } ?>
         <h1>Inicio de sesión</h1>
         <form action="<?php echo base_url('Auth/iniciar');?>" method="POST">
             <div class="form-group">
