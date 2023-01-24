@@ -47,5 +47,17 @@
             $this->session->sess_destroy();
             redirect("Auth");
         }
+
+        public function email(){
+            $this->email->from('brian98adan@gmail.com', 'Brayam Adan');
+            $this->email->to('brian98adan@gmail.com');
+            $this->email->subject('correo de pruebas');
+            $this->email->message('Probando el envio de correos en php');
+            if($this->email->send()){
+                echo "Mensaje enviado";
+            }else{
+                echo "Error al enviar el mensaje";
+            }
+        }
     }
 ?>
