@@ -13,7 +13,13 @@
         }
 
         public function registrar(){
-            
+            $data['nombre'] = $this->input->post('perfil');
+            $request = $this->Perfiles_model->insert($data);
+            if($request){
+                echo json_encode("Se guardo el perfil correctamente");
+            }else{
+                echo json_encode("No se pudo guardar el perfil");
+            }
         }
 
         public function listar(){

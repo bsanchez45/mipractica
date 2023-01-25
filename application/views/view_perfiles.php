@@ -5,33 +5,18 @@
     <table class="table table-hover" id="myTable">
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-            </tr>
-            <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-            </tr>
+
         </tbody>
     </table>
 </div>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -57,13 +42,18 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#save').click(function(e){
-            e.preventDefault();
+            e.preventDefault()
             $.ajax({
                 url: "<?php echo base_url('Perfiles/registrar')?>",
                 method: "POST",
                 data: $("form").serialize(),
                 cache: false,
-                dataType: 'json'
+                dataType: 'json',
+                success: function($data){
+                    alert($data)
+                    $("#myModal").modal("toggle")
+                    $("form")[0].reset()
+                }
             });
         });
     });
@@ -76,7 +66,10 @@
             },
             columns: [
                 { data: "id_rol" },
-                { data: "nombre" }
+                { data: "nombre" },
+                { render: function(data, type){
+                    return '<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editar</button> <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>'
+                }}
             ]
         });
     } );
