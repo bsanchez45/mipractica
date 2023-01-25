@@ -28,6 +28,7 @@
                     <div class="form-group">
                         <label for="perfil">Nombre del perfil:</label>
                         <input type="text" class="form-control" id="perfil" name="perfil">
+                        <input type="hidden" class="form-control" id="id_perfil" name="id_perfil">
                     </div>
                     <button type="submit" class="btn btn-default" id="save">Guardar</button>
                 </form>
@@ -67,10 +68,30 @@
             columns: [
                 { data: "id_rol" },
                 { data: "nombre" },
-                { render: function(data, type){
-                    return '<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Editar</button> <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>'
+                { 
+                    data: "id_rol",
+                    render: function(data){
+                    //console.log(data)
+                    return '<button type="button" class="btn btn-primary update" id="'+data+'"><span class="glyphicon glyphicon-pencil"></span> Editar</button> <button type="button" class="btn btn-danger delete" id="'+data+'"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>'
                 }}
             ]
         });
     } );
+
+    $(document).on('click', '.update',function(){
+        //alert($(this).attr('id'))
+        var idFront = $(this).attr('id')
+        $.ajax({
+            url: "<?php echo base_url('Perfiles/actualizar')?>",
+            method: "POST",
+            data: {idBack: idFront},
+            cache: false,
+            dataType: 'json',
+            success: function(data){
+                $("#myModal").modal("show")
+                $('#perfil').val(data.nombre)
+                $('#id_perfil').val(data.id_rol)
+            }
+        });
+    })
 </script>

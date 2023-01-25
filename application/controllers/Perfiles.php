@@ -13,8 +13,15 @@
         }
 
         public function registrar(){
+            print_r($_POST);
+            $data['id_rol'] = $this->input->post('id_perfil');
             $data['nombre'] = $this->input->post('perfil');
-            $request = $this->Perfiles_model->insert($data);
+            if($data['id_rol'] == ''){
+                $request = $this->Perfiles_model->update($data);
+            }else{
+                $request = $this->Perfiles_model->insert($data);
+            }
+            
             if($request){
                 echo json_encode("Se guardo el perfil correctamente");
             }else{
@@ -24,6 +31,12 @@
 
         public function listar(){
             $data = $this->Perfiles_model->readData();
+            echo json_encode($data);
+        }
+
+        public function actualizar(){
+            $resp['id_rol'] = $this->input->post('idBack');
+            $data = $this->Perfiles_model->fetch($resp);
             echo json_encode($data);
         }
     }
