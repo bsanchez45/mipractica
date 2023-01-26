@@ -29,6 +29,16 @@ class Perfiles_model extends CI_Model {
         $isOkey = $this->db->update($this->table, $data);
         return ($isOkey == true) ? true : false;
     }
+
+    public function countUserRol($id){
+        $this->db->where('rol', $id);
+        $query = $this->db->get('preregistros');
+        return $query->num_rows();
+    }
+
+    public function delete($id){
+		$this->db->delete($this->table, $id);
+	}
 }
 
 ?>

@@ -29,6 +29,7 @@
                         <label for="perfil">Nombre del perfil:</label>
                         <input type="text" class="form-control" id="perfil" name="perfil">
                         <input type="hidden" class="form-control" id="id_perfil" name="id_perfil">
+                        <input type="hidden" class="form-control" id="action" name="action" value="nuevo">
                     </div>
                     <button type="submit" class="btn btn-default" id="save">Guardar</button>
                 </form>
@@ -54,6 +55,7 @@
                     alert($data)
                     $("#myModal").modal("toggle")
                     $("form")[0].reset()
+                    $('#myTable').DataTable().ajax.reload()
                 }
             });
         });
@@ -80,6 +82,7 @@
 
     $(document).on('click', '.update',function(){
         //alert($(this).attr('id'))
+        $('#action').val('editar')
         var idFront = $(this).attr('id')
         $.ajax({
             url: "<?php echo base_url('Perfiles/actualizar')?>",
@@ -91,6 +94,22 @@
                 $("#myModal").modal("show")
                 $('#perfil').val(data.nombre)
                 $('#id_perfil').val(data.id_rol)
+                $('#myTable').DataTable().ajax.reload()
+            }
+        });
+    })
+
+    $(document).on('click', '.delete',function(){
+        var idFront = $(this).attr('id')
+        $.ajax({
+            url: "<?php echo base_url('Perfiles/delete')?>",
+            method: "POST",
+            data: {idBack: idFront},
+            cache: false,
+            dataType: 'json',
+            success: function(data){
+                alert(data)
+                $('#myTable').DataTable().ajax.reload()
             }
         });
     })
